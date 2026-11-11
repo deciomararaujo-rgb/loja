@@ -1,0 +1,315 @@
+@import "tailwindcss";
+
+/* Fonte dos títulos (Playfair Display, licença OFL), hospedada no próprio site. */
+@font-face {
+  font-family: "Playfair Display Site";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  size-adjust: 86%;
+  src: url("/fonts/playfair-display-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: "Playfair Display Site";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  size-adjust: 86%;
+  src: url("/fonts/playfair-display-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Playfair Display Site";
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+  size-adjust: 86%;
+  src: url("/fonts/playfair-display-latin-wght-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+
+@theme {
+  --font-sans: "Jost Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Playfair Display Site", Georgia, "Times New Roman", serif;
+
+  /* Paleta: bege, branco e laranja */
+  --color-cream: #fffdf9;
+  --color-sand-50: #fbf6ee;
+  --color-sand-100: #f6eee2;
+  --color-sand-200: #ecdfcc;
+  --color-sand-300: #dfccb1;
+  --color-sand-400: #c9b08e;
+  --color-ink: #2a1c13;
+  --color-ink-soft: #5a473a;
+  --color-ink-mute: #7a6757;
+  --color-flame-50: #fef3e8;
+  --color-flame-100: #fbdfc4;
+  --color-flame-300: #f4a561;
+  --color-flame-400: #ee8a35;
+  --color-flame-500: #e8751f;
+  --color-flame-600: #c4570b;
+  --color-flame-700: #a04606;
+
+  --shadow-soft: 0 24px 60px -28px rgba(74, 44, 20, 0.38);
+  --shadow-card: 0 1px 2px rgba(74, 44, 20, 0.05), 0 14px 34px -18px rgba(74, 44, 20, 0.3);
+
+  --animate-rise: rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  --animate-fade: fade 0.5s ease both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  /* O que recebe foco ou é alvo de link não fica escondido atrás do topo fixo.
+     (Com scroll-padding no html, a página pulava para cima quando o foco entrava nos botões do próprio topo.) */
+  main,
+  :where(main, footer) :where(a, button, input, select, textarea, summary, [tabindex], [id]) {
+    scroll-margin-top: 8rem;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-tap-highlight-color: transparent;
+  }
+  ::selection {
+    background: var(--color-flame-100);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-flame-500);
+    outline-offset: 3px;
+  }
+  button,
+  [role="button"],
+  summary,
+  label[for],
+  select {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  html.scroll-lock {
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12;
+  }
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-[0.32em] text-flame-600;
+  }
+  .display {
+    @apply font-display font-normal leading-[1.04] tracking-[-0.015em] text-ink;
+  }
+  .btn {
+    @apply inline-flex min-h-12 select-none items-center justify-center gap-2.5 rounded-full px-7 py-2 text-center text-[13px] font-semibold uppercase leading-tight tracking-[0.16em] transition duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-flame-600 text-white shadow-[0_14px_30px_-14px_rgba(196,87,11,0.75)] hover:bg-flame-700;
+  }
+  .btn-dark {
+    @apply bg-ink text-cream hover:bg-ink-soft;
+  }
+  .btn-outline {
+    @apply border border-ink/25 bg-transparent text-ink hover:border-ink hover:bg-ink hover:text-cream;
+  }
+  .btn-soft {
+    @apply border border-sand-300 bg-white text-ink hover:border-flame-500 hover:text-flame-700;
+  }
+  .btn-whats {
+    @apply bg-[#1f9d57] text-white shadow-[0_14px_30px_-16px_rgba(31,157,87,0.8)] hover:bg-[#19854a];
+  }
+  .field {
+    @apply h-12 w-full rounded-xl border border-sand-300 bg-white px-4 text-base text-ink transition placeholder:text-ink-mute/60 focus:border-flame-500 focus:outline-none focus:ring-4 focus:ring-flame-100 disabled:bg-sand-50 disabled:text-ink-mute;
+  }
+  .field-error {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-100;
+  }
+  .label {
+    @apply mb-1.5 block text-[13px] font-medium text-ink-soft;
+  }
+  .card {
+    @apply rounded-[1.75rem] border border-sand-200 bg-white;
+  }
+  .chip {
+    @apply inline-flex min-h-10 shrink-0 items-center rounded-full border border-sand-300 bg-white px-4 text-[13px] font-medium text-ink-soft transition hover:border-flame-500 hover:text-flame-700;
+  }
+  .chip-active {
+    @apply border-ink bg-ink text-cream hover:border-ink hover:text-cream;
+  }
+  .link-underline {
+    @apply underline decoration-flame-400 decoration-1 underline-offset-4 transition hover:text-flame-700 hover:decoration-flame-600;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Entrada dos elementos ao rolar a página. O atraso --rv-delay faz os cartões entrarem em sequência. */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) var(--rv-delay, 0ms),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay, 0ms);
+  }
+  .reveal.is-shown {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal .rv-zoom {
+    transform: scale(1.08);
+    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) var(--rv-delay, 0ms);
+  }
+  .reveal.is-shown .rv-zoom {
+    transform: none;
+  }
+  .reveal .rv-text {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+    transition:
+      opacity 0.6s ease calc(var(--rv-delay, 0ms) + 160ms),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--rv-delay, 0ms) + 160ms);
+  }
+  .reveal.is-shown .rv-text {
+    opacity: 1;
+    transform: none;
+  }
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal,
+  .reveal .rv-text,
+  .reveal .rv-zoom {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ───────── Topo da página inicial: vídeos em tela cheia, que passam sozinhos ───────── */
+.hero {
+  --header-h: 2.25rem; /* só a faixa preta: o topo transparente fica por cima do vídeo */
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  /* Ocupa a primeira tela inteira, logo abaixo da barra do topo. */
+  height: calc(100vh - var(--header-h));
+  height: calc(100svh - var(--header-h));
+  min-height: 20rem;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+.hero-slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+/* O vídeo que está saindo continua visível por baixo enquanto o próximo aparece por cima. */
+.hero-slide.is-prev {
+  opacity: 1;
+  transition-duration: 0s;
+}
+.hero-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 54% 50%;
+  -webkit-user-drag: none;
+}
+
+/* Fotos no topo (passam depois dos vídeos): a foto aparece inteira no meio, sem cortar o que está escrito nela,
+   e uma cópia desfocada dela preenche o resto da tela. */
+.hero-backdrop {
+  position: absolute;
+  inset: -8%;
+  width: 116%;
+  max-width: none;
+  height: 116%;
+  object-fit: cover;
+  filter: blur(26px) saturate(1.1) brightness(0.82);
+}
+.hero-media.hero-photo {
+  position: relative;
+  object-fit: contain;
+  object-position: center;
+}
+/* Fotos que vieram com o site: têm versões em que o próprio fundo continua além das bordas (para cima e para baixo
+   no celular, para os lados nas telas largas). Assim a foto preenche a tela inteira e nada do que está escrito é cortado. */
+.hero-slide picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.hero-media.hero-photo.is-extended {
+  object-fit: cover;
+}
+
+/* Faixa preta com letras em movimento */
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
