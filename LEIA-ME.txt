@@ -1,0 +1,5 @@
+COMO USAR
+1) Copie o conteúdo desta pasta POR CIMA do seu projeto (src/ e public/). Os arquivos novos de public/ (brand/marcas, menu, video/abertura) e os de src/ substituem/entram.
+   Não apague a sua pasta public: ela tem logo-preta.webp, banners, fotos dos produtos e vídeos topo-*.mp4, que não vieram no ZIP.
+2) Suba para o seu GitHub (Site). Ao abrir o site pela 1ª vez, o banco aplica sozinho o novo WhatsApp (11 97396-0316), Pix, cidade e frete J3Flex.
+Publicar de graça: Vercel (plano Hobby) + banco Neon (plano grátis). Variável: DATABASE_URL do Neon.
